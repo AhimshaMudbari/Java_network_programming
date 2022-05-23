@@ -10,7 +10,7 @@ public class Ipv4orIPv6 {
 		if (add.length == 4) {
 			System.out.println("IPv4: " + iadd.toString().replace("ahimsha-HP-EliteBook-830-G5/", ""));
 		}
-		if (add.length == 16) {
+		if (add.length > 4) {
 			System.out.println("IPv6: " + iadd.toString().replace("ahimsha-HP-EliteBook-830-G5/", ""));
 		}
 	}
