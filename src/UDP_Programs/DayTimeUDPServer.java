@@ -1,38 +1,20 @@
 package UDP_Programs;
-
-import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import java.net.InetAddress;
 public class DayTimeUDPServer {
-
-	private final static int PORT = 13;
-	private final static Logger audit = Logger.getLogger("requests");
-	private final static Logger errors = Logger.getLogger("errors");
-
-	public static void main(String[] args) {
-		try (DatagramSocket socket = new DatagramSocket(PORT)) {
-			while (true) {
-				try { // w ww . d e m o 2s . co m
-					DatagramPacket request = new DatagramPacket(new byte[1024], 1024);
-					socket.receive(request);
-
-					String daytime = new Date().toString();
-					byte[] data = daytime.getBytes("US-ASCII");
-					DatagramPacket response = new DatagramPacket(data, data.length, request.getAddress(),
-							request.getPort());
-					socket.send(response);
-					audit.info(daytime + " " + request.getAddress());
-				} catch (IOException | RuntimeException ex) {
-
-					errors.log(Level.SEVERE, ex.getMessage(), ex);
-				}
-			}
-		} catch (IOException ex) {
-			errors.log(Level.SEVERE, ex.getMessage(), ex);
-		}
+	public static void main(String[] args)throws Exception {
+	DatagramSocket ds = new DatagramSocket(5555);
+	byte[] b1= new byte[1024];
+	DatagramPacket dp = new DatagramPacket(b1, b1.length);
+	ds.receive(dp);
+	String str = new String(dp.getData());
+	System.out.println("Server is sending "+str+" for multiplication");
+	int num = Integer.parseInt(str.trim());
+	int result= num*num;
+	byte[] b2= String.valueOf(result).getBytes();
+	InetAddress ia= InetAddress.getLocalHost();
+	DatagramPacket dp1=new DatagramPacket(b2, b2.length,ia,dp.getPort());
+	ds.send(dp1);
 	}
 }

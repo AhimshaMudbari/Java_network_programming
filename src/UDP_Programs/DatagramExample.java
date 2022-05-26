@@ -1,13 +1,11 @@
 package UDP_Programs;
-
 import java.io.UnsupportedEncodingException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
 public class DatagramExample {
 	public static void main(String[] args) {
-		String s = "This is a test.";
+		String s = "Hello...";
 		try {
 			byte[] data = s.getBytes("UTF-8");
 			InetAddress ia = InetAddress.getByName("www.ibiblio.org");
